@@ -1,8 +1,8 @@
 <?php
     $host = 'localhost';
-    $username = 'assetmgtuser';
-    $password = 'Pass4Assetmgtuser';
-    $database = 'assetmgt';
+    $username = 'user';
+    $password = 'userpassword';
+    $database = 'assetmgtsystem_database_name';
 
    $con = mysqli_connect($host, $username, $password, $database);
     if (mysqli_connect_errno()) {
