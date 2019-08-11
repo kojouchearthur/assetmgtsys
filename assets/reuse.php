@@ -35,6 +35,7 @@ function itExists($col,$tbl,$data){
 }
 
 function cleanValidate($data,string $datatype){
+    $datatype = strtolower($datatype);
     switch ($datatype){
         case 'email':
             if(filter_var($data,FILTER_SANITIZE_EMAIL)){

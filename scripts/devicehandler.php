@@ -8,31 +8,29 @@ require "../assets/assetmgtconf.php";
 $dev = '';
 $devuseremail = '';
 
-if(isset($_REQUEST['devuseremail'])){
-    $devuseremail= cleanValidate(testInput($_REQUEST['devuseremail']),'email');
-}
 
-if(isset($_POST['devuseremail'])){
-    $devuseremail= cleanValidate(testInput($_POST['devuseremail']),'email');
-}
-
-if(isset($_REQUEST['devasstnum'])){
-    $dev = testInput($_REQUEST['devasstnum']);
-}
-
-if(isset($_POST['assetnum'])){
-    $dev = testInput($_POST['assetnum']);
-}
-
-if(isset($_REQUEST['assetnum'])){
-    $dev = testInput($_REQUEST['assetnum']);
-}
-
-$query0 = "SELECT * FROM asset_users WHERE assetnum='$dev' AND email='$devuseremail'";
-$res0 = mysqli_query($con,$query0);
-$devdet = mysqli_fetch_assoc($res0);
-
+/** Code block to mark a device as returned */
 if(isset($_REQUEST['datereturned'])){
+    
+    if(isset($_REQUEST['devuseremail'])){
+        $devuseremail= cleanValidate(testInput($_REQUEST['devuseremail']),'email');
+    }    
+    if(isset($_POST['devuseremail'])){
+        $devuseremail= cleanValidate(testInput($_POST['devuseremail']),'email');
+    }    
+    if(isset($_REQUEST['devasstnum'])){
+        $dev = testInput($_REQUEST['devasstnum']);
+    }    
+    if(isset($_POST['assetnum'])){
+        $dev = testInput($_POST['assetnum']);
+    }    
+    if(isset($_REQUEST['assetnum'])){
+        $dev = testInput($_REQUEST['assetnum']);
+    }    
+    $query0 = "SELECT * FROM asset_users WHERE assetnum='$dev' AND email='$devuseremail'";
+    $res0 = mysqli_query($con,$query0);
+    $devdet = mysqli_fetch_assoc($res0);
+
     $datereturned = $_REQUEST['datereturned'];
     $datretraw = explode('-',$datereturned);
     $datereturnedraw = mktime(0,0,0,$datretraw[1],$datretraw[2],$datretraw[0]);
@@ -75,12 +73,12 @@ if(isset($_REQUEST['datereturned'])){
     $query = "UPDATE assets SET deviceuserrecord=CONCAT_WS(':',deviceuserrecord,'$datereturned:$datereturnedraw'), assigned=0, modifiedby='$modifiedby' WHERE assetnum='$dev'";
     $query1 = "UPDATE asset_users SET returned=1, datereturned='$datereturned', datereturnedraw=$datereturnedraw, modifiedby='$modifiedby' WHERE email='$devuseremail' AND assetnum='$dev'";
     $query2 = "UPDATE assetusers SET devicerecord='$newdevrecord', modifiedby='$modifiedby' WHERE email='$devuseremail'";
-//  $query3 = "INSERT INTO notifications() VALUES()";
+    //  $query3 = "INSERT INTO notifications() VALUES()";
 
     $res = mysqli_query($con,$query);
     $res1 = mysqli_query($con,$query1);
     $res2 = mysqli_query($con,$query2);
-//  $res3 = mysqli_query($con,$query3);
+    //  $res3 = mysqli_query($con,$query3);
 
     if($res && $res1 && $res2){
         echo "Device Record Updated Successfully"."`".Date('D, d-M-Y',$datereturnedraw)."`".Date('Y-m-d',$datereturnedraw);
@@ -90,9 +88,22 @@ if(isset($_REQUEST['datereturned'])){
 }
 
 /**Code Block for reassigning Device to a different user*/
-
 if(isset($_POST['deviceuser'])){
-    if(isset($_POST['deviceuseremail']) && isset($_POST['dateassigned'])){        
+    if(isset($_POST['deviceuseremail']) && isset($_POST['dateassigned'])){
+        $devuseremail= cleanValidate(testInput($_POST['devuseremail']),'email');  
+        if(isset($_REQUEST['devasstnum'])){
+            $dev = testInput($_REQUEST['devasstnum']);
+        }    
+        if(isset($_POST['assetnum'])){
+            $dev = testInput($_POST['assetnum']);
+        }
+        if(isset($_REQUEST['assetnum'])){
+            $dev = testInput($_REQUEST['assetnum']);
+        }    
+        $query0 = "SELECT * FROM asset_users WHERE assetnum='$dev' AND email='$devuseremail'";
+        $res0 = mysqli_query($con,$query0);
+        $devdet = mysqli_fetch_assoc($res0);
+
         $deviceuser = cleanValidate(testInput($_POST['deviceuser']),'string');
         $names = explode(' ',$deviceuser);
         if(count($names)>1){
@@ -186,10 +197,24 @@ if(isset($_POST['deviceuser'])){
     }
 }
 
+/**Code Block to mark a device as faulty*/
 if(isset($_REQUEST['devcond'])){
     $devcond = strtolower(cleanValidate(testInput($_REQUEST['devcond']),'string'));
+        
+    if(isset($_REQUEST['devasstnum'])){
+        $dev = testInput($_REQUEST['devasstnum']);
+    }    
+    if(isset($_POST['assetnum'])){
+        $dev = testInput($_POST['assetnum']);
+    }    
+    if(isset($_REQUEST['assetnum'])){
+        $dev = testInput($_REQUEST['assetnum']);
+    }
+
+    $modifiedby = $_SESSION['logged-in'];
+
     if($devcond=='faulty'){
-        $query = "UPDATE assets SET healthy=1 WHERE assetnum='$dev'";
+        $query = "UPDATE assets SET healthy=1,modifiedby='$modifiedby' WHERE assetnum='$dev'";
         // $query1 = "INSERT INTO notifications() VALUES()";
 
         $res = mysqli_query($con,$query);
@@ -203,7 +228,7 @@ if(isset($_REQUEST['devcond'])){
             exit();
         }
     }elseif($devcond=='working'){
-        $query = "UPDATE assets SET healthy=0 WHERE assetnum='$dev'";
+        $query = "UPDATE assets SET healthy=0,modifiedby='$modifiedby' WHERE assetnum='$dev'";
         // $query1 = "INSERT INTO notifications() VALUES()";
 
         $res = mysqli_query($con,$query);
@@ -217,15 +242,29 @@ if(isset($_REQUEST['devcond'])){
             exit();
         }
     }else{
-        echo "Error`Some Error Occured in changing Device Health state";
+        echo "Error`Some Error Occured in changing Device Working state";
         exit();
     }
 }
 
+/**Code Block to mark a device as sold*/
 if(isset($_REQUEST['devstock'])){
-    $devcond = strtolower(cleanValidate(testInput($_REQUEST['devstock']),'string'));
-    if($devcond=='sold'){
-        $query = "UPDATE assets SET sold=0 WHERE assetnum='$dev'";
+    $devstock = strtolower(cleanValidate(testInput($_REQUEST['devstock']),'string'));
+
+    if(isset($_REQUEST['devasstnum'])){
+        $dev = testInput($_REQUEST['devasstnum']);
+    }    
+    if(isset($_POST['assetnum'])){
+        $dev = testInput($_POST['assetnum']);
+    }    
+    if(isset($_REQUEST['assetnum'])){
+        $dev = testInput($_REQUEST['assetnum']);
+    }
+
+    $modifiedby = $_SESSION['logged-in'];
+
+    if($devstock=='sold'){
+        $query = "UPDATE assets SET sold=0,modifiedby='$modifiedby' WHERE assetnum='$dev'";
         // $query1 = "INSERT INTO notifications() VALUES()";
 
         $res = mysqli_query($con,$query);
@@ -238,8 +277,8 @@ if(isset($_REQUEST['devstock'])){
             echo "Error`Unable to mark device as sold";
             exit();
         }
-    }elseif($devcond=='unsold'){
-        $query = "UPDATE assets SET sold=1 WHERE assetnum='$dev'";
+    }elseif($devstock=='unsold'){
+        $query = "UPDATE assets SET sold=1,modifiedby='$modifiedby' WHERE assetnum='$dev'";
         // $query1 = "INSERT INTO notifications() VALUES()";
 
         $res = mysqli_query($con,$query);
@@ -255,6 +294,44 @@ if(isset($_REQUEST['devstock'])){
     }else{
         echo "Error'Some Error Occured in changing Device Stock status";
         exit();
+    }
+}
+
+/*block to mark user as deleted*/
+if(isset($_REQUEST['devuseremail']) && isset($_REQUEST['devuserid'])){
+    $devuseremail = cleanValidate(testInput($_REQUEST['devuseremail']),'email');
+    $devuserid = cleanValidate(testInput($_REQUEST['devuserid']),'string');
+
+    $query0 = "SELECT * from asset_users WHERE email='$devuseremail' AND userid='$devuserid' AND returned=0";
+    $res0 = mysqli_query($con,$query0);
+    $actvuserdevs = mysqli_num_rows($res0);
+
+    $query1 = "SELECT * from assetusers WHERE email='$devuseremail' AND userid='$devuserid'";
+    $res1  = mysqli_query($con,$query1);
+    $devuser = mysqli_fetch_assoc($res1);
+            
+    if($actvuserdevs>0){
+        echo "Error`<div style='text-align:center;'><span style='color:orangered;'><i class='fa fa-times fa-2x'></i></span><br>".$devuser['fname']." ".$devuser['lname']." still has ".$actvuserdevs." device(s) not yet returned.<br>Mark the device(s) as returned before you can delete ".$devuser['fname']." ".$devuser['lname']."</div>";
+        exit();
+    }else{
+        $query0a = "UPDATE asset_users SET userstate=0 WHERE email='$devuseremail' AND userid='$devuserid'";
+        $query1a = "UPDATE assetusers SET userstate=0 WHERE email='$devuseremail' AND userid='$devuserid'";
+        
+        $res0a = mysqli_query($con,$query0a);
+        $res1a = mysqli_query($con,$query1a);
+        
+        if($res0a && $res1a){
+            echo "Success`<div style='text-align:center;'><span style='color:green;'><i class='fa fa-check fa-2x'></i></span><br>".$devuser['fname']." ".$devuser['lname']." has been successfully deleted.</div>";
+        }else{
+            $query0a = "UPDATE asset_users SET userstate=1 WHERE email='$devuseremail' AND userid='$devuserid'";
+            $query1a = "UPDATE assetusers SET userstate=1 WHERE email='$devuseremail' AND userid='$devuserid'";
+            
+            $res0a = mysqli_query($con,$query0a);
+            $res1a = mysqli_query($con,$query1a);
+
+            echo "Error`Some error occurred, kindly try again soon.";
+        }
+
     }
 }
 ?>

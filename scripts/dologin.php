@@ -30,14 +30,17 @@
                 header("Location: ../dashboard.php");
             }else{
                 echo 'Error'.'`'.'<i class="fa fa-exclamation-triangle fa-3x"></i><br>Account Blocked<br>Contact System Administrator!!!';
+                exit();
             }            
         }else{
             echo 'Error Bad Login'.'`';
             echo '<i class="fa fa-times fa-3x"></i><br>Check Login Details!!!';
+            exit();
         }
     } else{
         echo 'Error Bad Login'.'`';
         echo '<i class="fa fa-times fa-3x"></i><br>Check Login Details!!!';
+        exit();
     }
     mysqli_close($con);
 ?>

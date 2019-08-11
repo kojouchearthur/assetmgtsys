@@ -19,7 +19,7 @@ echo "
             <th>Email</th>
             <th>Current Location</th>
             <th>Current Designation</th>
-            <th>Recent Device Assigned</th>
+            <th>Latest Device Assigned</th>
             <th>Date Assigned</th>
             <th>Actions</th>
         </tr>
@@ -52,16 +52,23 @@ if(!$result0){
 //        $curusrdev = mysqli_fetch_assoc($res2);
         $curusrdev = strtoupper($curusrdevrec[2])."<br>(".$curusrdevrec[3].")";
 //        $curusrdev = $curusrdev['devicetype']."<br>(".$curusrdevrec[3]."<br>".$curusrdev['brand']." ".$curusrdev['model'].")";
+        $rowstyle = $rowstylend='';
+        $usrstate = "<span class='del usrdel' style='color:orangered;'><i class='fa fa-trash'></i></span>";
+        if($devusers['userstate']==0){
+            $rowstyle = "<del>";
+            $rowstylend = "</del>";
+            $usrstate = "<span class='del' style='color:gray;'><i class='fa fa-align-center'></i></span>";
+        }
 
         echo "<tr>
             <td>".$sn."</td>
-            <td class='devusrname itemname'>".$devusers['fname'].' '.$devusers['lname']."</td>
-            <td class='devusrunique'><span class='devusrmail'>".$devusers['email']."</span><span class='devusruniquenum'><input type='hidden' class='devusrid' value='".$devusers['userid']."'></span></td>
-            <td>".$devusers['recentlocation']."</td>
-            <td>".$devusers['recentdesignation']."</td>
-            <td style='text-align:center; width:250px;'>".$curusrdev."</td>
-            <td>".Date('D,d-M-Y',$curusrdevrec[6])."</td>
-            <td><span class='usrinfo info'><i class='fa fa-info-circle'></i></span>&nbsp;<span class='del usrdel' style='color:orangered;'><i class='fa fa-trash'></i></span></td>
+            <td class='devusrname itemname'>".$rowstyle.$devusers['fname'].' '.$devusers['lname'].$rowstylend."</td>
+            <td class='devusrunique'><span class='devusrmail'>".$rowstyle.$devusers['email']."</span><span class='devusruniquenum'><input type='hidden' class='devusrid' value='".$devusers['userid']."'></span>".$rowstylend."</td>
+            <td>".$rowstyle.$devusers['recentlocation'].$rowstylend."</td>
+            <td>".$rowstyle.$devusers['recentdesignation'].$rowstylend."</td>
+            <td style='text-align:center;width:250px;'>".$rowstyle.$curusrdev.$rowstylend."</td>
+            <td>".$rowstyle.Date('D,d-M-Y',$curusrdevrec[6]).$rowstylend."</td>
+            <td><span class='usrinfo info'><i class='fa fa-info-circle'></i></span>&nbsp;".$usrstate."</td>
         </tr>";
         $sn++;
     }
