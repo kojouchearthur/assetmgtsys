@@ -51,7 +51,7 @@
                             echo "</td>
                             <td>".date('D, d-M-Y',$joindate)."</td>
                             <td><span id='' class='acctinfo info'><i class='fa fa-info-circle'></i></span>&nbsp;<span id='' class='mgset mgacct'>
-                            <i class='fa fa-cog'></i></span>&nbsp;";if($_SESSION['logged-in']=='admin' || $_SESSION['logged-in']=='superadmin'){echo "<span id='' class='del acctdel'><i class='fa fa-trash' style='color:orangered;'></i></span>";}echo"</td>
+                            <i class='fa fa-cog'></i></span>&nbsp;";if($_SESSION['logged-in']=='admin' || $_SESSION['logged-in']=='superadmin'){echo "<span id='' class='del acctdel'><i class='fa fa-trash' title='Delete Account' style='color:orangered;'></i></span>";}echo"</td>
                         </tr>
                         ";
                         $sn++;                        

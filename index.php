@@ -15,6 +15,10 @@
   <div class='row main-con' id='main-con'>
     <div class='col-xs-2 col-sm-2'></div>
 	<div class='col-xs-12 col-sm-8' id=''>
+        <div class='' style='text-align:center;color:#efef;font-weight:600;'>
+            <img class='' src='<?php echo $logo ?>' width='50' alt='Logo' />
+            <p>Asset Management System</p>
+        </div>
         <div class='form-con' id='form-con'>
             <div class='login-form-con' id='login-con'>
                 <form class='' id='log-form' action='' method=''>                
@@ -45,6 +49,11 @@
                                 <button type='submit' id='log-btn' class='btn btn-success btns' style=''><i class='glyphicon glyphicon-log-in'></i> Sign In </button><br>
                             </span>			  
                         </div>
+                    </div>
+                    <div style="font-size:10px;text-align:center;">
+                        <h6>Test the system with either of the following credentials:</h6>
+                        <u>Username/Password:</u> <em>one/Pass4Demo</em><br><br>
+                        <u>Username2/Password:</u> <em>two/Pass4Demo</em>
                     </div><br>
                     <?php
                     if(isset($_SESSION['admin'])){

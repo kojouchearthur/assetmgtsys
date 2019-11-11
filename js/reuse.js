@@ -163,7 +163,7 @@ function frmHndl(e, mtd, url, func) {
         data: formData
     }).done(function(response) {
         var res = response.split("`");
-        if ((res[0].startsWith("Error"))) {
+        if ((res[0].startsWith("Error")) || (response.includes("Unknown Error"))) {
             e.find(".frm-chk").html(res[1]);
             e.find(".frm-chk").slideDown(1000);
         } else {

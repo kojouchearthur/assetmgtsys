@@ -85,7 +85,7 @@ echo "
                             <td>".$retstyl.date('D, d-M-Y',$purchasedate).$retstylnd."</td>
                             <td>".$retstyl.$curdevuserrecord[0].$retstylnd."</td>
                             <td>".$retstyl.$curdevuserrecord[4].$retstylnd."</td>
-                            <td><span id='' class='devinfo info'><i class='fa fa-info-circle'></i></span>&nbsp;<span id='' class='mgset mgdev'><i class='fa fa-cog'></i></span>&nbsp;<span id='' class='del devdel'><i class='fa fa-trash' style='color:orangered;'></i></span></td>
+                            <td><span id='' class='devinfo info'><i class='fa fa-info-circle' title='Device Info'></i></span>&nbsp;<span id='' class='mgset mgdev'><i class='fa fa-cog' title='Manage Device'></i></span>&nbsp;<span id='' class='del devdel'><i class='fa fa-trash' title='Delete Device' style='color:orangered;'></i></span></td>
                         </tr>
                         ";
                         $sn++;

@@ -66,11 +66,11 @@ legend {
     /* background-image: url("../images/aciholdings.png"), url("../images/recimg.png"); */
     background-color: #333;
     width: 100%;
-    height: 100%;
+    min-height: 650px;
     background-size: cover;
     background-position: center;
     position: relative;
-    background-repeat: repeat !important;
+    background-repeat: repeat repeat !important;
     margin: 0 auto;
     padding: 0px;
 }
@@ -474,7 +474,8 @@ legend {
 .dashcon {
     padding: 50px;
     margin: 0 auto;
-    background-image: linear-gradient(to bottom right, #003, rgba(50, 100, 150, 0.7), #004) !important;
+    background-image: linear-gradient(to bottom left, #036, #039) !important;
+    /* background-image: linear-gradient(to bottom right, #003, rgba(50, 100, 150, 0.7), #004) !important; */
     /*	background-image: linear-gradient(to bottom right, rgba(50,100,150,0.7), rgba(20,10,10,0.6)) !important;*/
     height: 100% !important;
 }
@@ -502,7 +503,7 @@ legend {
 }
 
 .men-itm:hover {
-    box-shadow: 10px 10px !important;
+    box-shadow: 5px 5px gray !important;
 }
 
 .men-itm-ico {
@@ -566,8 +567,9 @@ legend {
 
 #dshbkg {
     height: 100% !important;
+    background-image: linear-gradient(to bottom left, #036, #039) !important;
     /*	background-image: linear-gradient(to bottom right, rgba(50,100,150,0.7), rgba(20,10,10,0.6)) !important;   */
-    background-image: linear-gradient(to bottom right, #008, rgba(50, 100, 150, 0.7), #009) !important;
+    /* background-image: linear-gradient(to bottom right, #008, rgba(50, 100, 150, 0.7), #009) !important; */
     width: 100%;
     background-size: 100% !important;
     background-position: center;

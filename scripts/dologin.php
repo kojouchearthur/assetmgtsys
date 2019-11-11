@@ -38,8 +38,8 @@
             exit();
         }
     } else{
-        echo 'Error Bad Login'.'`';
-        echo '<i class="fa fa-times fa-3x"></i><br>Check Login Details!!!';
+        echo 'Unknown Error'.'`';
+        echo '<i class="fa fa-times fa-3x"></i><br><span style="font-size:13px;">Connection Error...<em>It\'s on us, not you!</em></span>';
         exit();
     }
     mysqli_close($con);

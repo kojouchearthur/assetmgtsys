@@ -79,7 +79,7 @@ if(isset($_REQUEST['q'])){
                             <td>".date('D, d-M-Y',$purchasedate)."</td>
                             <td>".$curdevuserrecord[0]."</td>
                             <td>".$curdevuserrecord[4]."</td>
-                            <td><span id='' class='devinfo info'><i class='fa fa-info-circle'></i></span>&nbsp;<span id='' class='mgset mgdev'><i class='fa fa-cog'></i></span>&nbsp;<span id='' class='del devdel'><i class='fa fa-trash' style='color:orangered;'></i></span></td>
+                            <td><span id='' class='devinfo info'><i class='fa fa-info-circle' title='Device Info'></i></span>&nbsp;<span id='' class='mgset mgdev'><i class='fa fa-cog' title='Manage Device'></i></span>&nbsp;<span id='' class='del devdel'><i class='fa fa-trash' title='Delete Device' style='color:orangered;'></i></span></td>
                         </tr>
                         ";
                         $sn++;
@@ -159,7 +159,7 @@ if(isset($_REQUEST['q'])){
                             <td>".date('D, d-M-Y',$purchasedate)."</td>
                             <td>".$curdevuserrecord[0]."</td>
                             <td>".$curdevuserrecord[4]."</td>
-                            <td><span id='' class='devinfo info'><i class='fa fa-info-circle'></i></span>&nbsp;<span id='' class='mgset mgdev'><i class='fa fa-cog'></i></span>&nbsp;<span id='' class='del devdel'><i class='fa fa-trash' style='color:orangered;'></i></span></td>
+                            <td><span id='' class='devinfo info'><i class='fa fa-info-circle' title='Device Info'></i></span>&nbsp;<span id='' class='mgset mgdev'><i class='fa fa-cog' title='Manage Device'></i></span>&nbsp;<span id='' class='del devdel'><i class='fa fa-trash' title='Delete Device' style='color:orangered;'></i></span></td>
                         </tr>
                         ";
                         $sn++;
@@ -239,7 +239,7 @@ if(isset($_REQUEST['q'])){
                             <td>".date('D, d-M-Y',$purchasedate)."</td>
                             <td>".$curdevuserrecord[0]."</td>
                             <td>".$curdevuserrecord[4]."</td>
-                            <td><span id='' class='devinfo info'><i class='fa fa-info-circle'></i></span>&nbsp;<span id='' class='mgset mgdev'><i class='fa fa-cog'></i></span>&nbsp;<span id='' class='del devdel'><i class='fa fa-trash' style='color:orangered;'></i></span></td>
+                            <td><span id='' class='devinfo info'><i class='fa fa-info-circle' title='Device Info'></i></span>&nbsp;<span id='' class='mgset mgdev'><i class='fa fa-cog' title='Manage Device'></i></span>&nbsp;<span id='' class='del devdel'><i class='fa fa-trash' title='Delete Device' style='color:orangered;'></i></span></td>
                         </tr>
                         ";
                         $sn++;
@@ -306,7 +306,7 @@ if(isset($_REQUEST['q'])){
                             <td>".$devusers['recentdesignation']."</td>
                             <td style='text-align:center; width:250px;'>".$curusrdev."</td>
                             <td>".Date('D,d-M-Y',$curusrdevrec[6])."</td>
-                            <td><span class='usrinfo info'><i class='fa fa-info-circle'></i></span>&nbsp;<span class='del usrdel' style='color:orangered;'><i class='fa fa-trash'></i></span></td>
+                            <td><span class='usrinfo info'><i class='fa fa-info-circle' title='User Info'></i></span>&nbsp;<span class='del usrdel' style='color:orangered;'><i class='fa fa-trash' title='Delete User'></i></span></td>
                         </tr>";
                         $sn++;
                     }
@@ -363,8 +363,8 @@ if(isset($_REQUEST['q'])){
                             }
                             echo "</td>
                             <td>".date('D, d-M-Y',$joindate)."</td>
-                            <td><span id='' class='acctinfo info'><i class='fa fa-info-circle'></i></span>&nbsp;<span id='' class='mgset mgacct'>
-                            <i class='fa fa-cog'></i></span>&nbsp;";if($_SESSION['logged-in']=='admin' || $_SESSION['logged-in']=='superadmin'){echo "<span id='' class='del acctdel'><i class='fa fa-trash' style='color:orangered;'></i></span>";}echo"</td>
+                            <td><span id='' class='acctinfo info'><i class='fa fa-info-circle' title='Account Info'></i></span>&nbsp;<span id='' class='mgset mgacct'>
+                            <i class='fa fa-cog' title='Manage Account'></i></span>&nbsp;";if($_SESSION['logged-in']=='admin' || $_SESSION['logged-in']=='superadmin'){echo "<span id='' class='del acctdel'><i class='fa fa-trash' title='Delete Account' style='color:orangered;'></i></span>";}echo"</td>
                         </tr>
                         ";
                         $sn++;                        
